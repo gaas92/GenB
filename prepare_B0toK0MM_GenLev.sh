@@ -15,7 +15,7 @@ eval `scram runtime -sh`
 
 # Download fragment from My GitHub
 curl -s -k https://raw.githubusercontent.com/gaas92/GenB/master/GenFragments/BPH_B0toK0MM_GenFrag.py --retry 3 --create-dirs -o Configuration/GenProduction/python/BPH_B0toK0MM_GenFrag.py
-[ -s Configuration/GenProduction/python/BPH_B0toK0MM_GenFrag.py] || exit $?;
+[ -s Configuration/GenProduction/python/BPH_B0toK0MM_GenFrag.py ] || exit $?;
 scram b
 cd ../..
 

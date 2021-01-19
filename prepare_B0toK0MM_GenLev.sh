@@ -35,5 +35,5 @@ EVENTS=66973
 
 
 # cmsDriver command
-cmsDriver.py Configuration/GenProduction/python/BPH_B0toK0MM_GenFrag.py --python_filename BPH_B0toK0MM_1_cfg.py --eventcontent RAWSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM --fileout file:BPH_B0toK0MM_Gen.root --conditions 102X_upgrade2018_realistic_v11 --beamspot Realistic25ns13TeVEarly2018Collision --step GEN,SIM --geometry DB:Extended --era Run2_2018 --no_exec --mc -n $EVENTS || exit $? ;
+cmsDriver.py Configuration/GenProduction/python/BPH_B0toK0MM_GenFrag.py --python_filename BPH_B0toK0MM_1_cfg.py --eventcontent RAWSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM --fileout file:BPH_B0toK0MM_Gen.root --conditions 102X_upgrade2018_realistic_v11 --beamspot Realistic25ns13TeVEarly2018Collision --step GEN --geometry DB:Extended --era Run2_2018 --no_exec --mc -n $EVENTS || exit $? ;
 

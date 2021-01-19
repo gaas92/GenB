@@ -2,26 +2,6 @@
 
 #!/bin/bash
 
-#############################################################
-#   This script is used by McM when it performs automatic   #
-#  validation in HTCondor or submits requests to computing  #
-#                                                           #
-#      !!! THIS FILE IS NOT MEANT TO BE RUN BY YOU !!!      #
-# If you want to run validation script yourself you need to #
-#     get a "Get test" script which can be retrieved by     #
-#  clicking a button next to one you just clicked. It will  #
-# say "Get test command" when you hover your mouse over it  #
-#      If you try to run this, you will have a bad time     #
-#############################################################
-
-# Make voms proxy
-voms-proxy-init --voms cms --out $(pwd)/voms_proxy.txt --hours 4
-export X509_USER_PROXY=$(pwd)/voms_proxy.txt
-
-# Dump actual test code to a BPH-B0toK0MM_prep.sh file that can be run in Singularity
-cat <<'EndOfTestFile' > BPH-B0toK0MM_prep.sh
-#!/bin/bash
-
 export SCRAM_ARCH=slc7_amd64_gcc700
 
 source /cvmfs/cms.cern.ch/cmsset_default.sh
@@ -57,8 +37,3 @@ EVENTS=66973
 # cmsDriver command
 cmsDriver.py Configuration/GenProduction/python/BPH_B0toK0MM_GenFrag.py --python_filename BPH_B0toK0MM_1_cfg.py --eventcontent RAWSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM --fileout file:BPH_B0toK0MM_Gen.root --conditions 102X_upgrade2018_realistic_v11 --beamspot Realistic25ns13TeVEarly2018Collision --step GEN,SIM --geometry DB:Extended --era Run2_2018 --no_exec --mc -n $EVENTS || exit $? ;
 
-# End of BPH-B0toK0MM_prep.sh file
-EndOfTestFile
-
-# Make file executable
-chmod +x BPH-B0toK0MM_prep.sh

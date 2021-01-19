@@ -3,7 +3,7 @@
 #!/bin/bash
 
 export SCRAM_ARCH=slc7_amd64_gcc700
-
+echo line_6_ok
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 if [ -r CMSSW_10_2_16_UL/src ] ; then
   echo release CMSSW_10_2_16_UL already exists
@@ -12,13 +12,13 @@ else
 fi
 cd CMSSW_10_2_16_UL/src
 eval `scram runtime -sh`
-
+echo line_15_ok
 # Download fragment from My GitHub
 curl -s -k https://raw.githubusercontent.com/gaas92/GenB/master/GenFragments/BPHnoFilters_B0toK0MM_GenFrag.py --retry 3 --create-dirs -o Configuration/GenProduction/python/BPHnoFilters_B0toK0MM_GenFrag.py--retry
-[ -s Configuration/GenProduction/python/BPHnoFilters_B0toK0MM_GenFrag.py ] || exit $?;
+[ -s Configuration/GenProduction/python/BPHnoFilters_B0toK0MM_GenFrag.py ] || exit $? ;
 scram b
 cd ../..
-
+echo line_21_ok
 # Maximum validation duration: 86400s
 # Margin for validation duration: 20%
 # Validation duration with margin: 86400 * (1 - 0.20) = 69120s
@@ -33,7 +33,8 @@ cd ../..
 # It is estimated that this validation will produce: 66973 * 0.0022 = 145 events
 EVENTS=1000
 
-
+echo line_36_ok
 # cmsDriver command
 cmsDriver.py Configuration/GenProduction/python/BPHnoFilters_B0toK0MM_GenFrag.py --python_filename BPHnoFilters_B0toK0MM_1_cfg.py --eventcontent RAWSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM --fileout file:BPH_B0toK0MM_GenNF.root --conditions 102X_upgrade2018_realistic_v11 --beamspot Realistic25ns13TeVEarly2018Collision --step GEN,SIM --geometry DB:Extended --era Run2_2018 --no_exec --mc -n $EVENTS || exit $? ;
 
+echo line_40_ok

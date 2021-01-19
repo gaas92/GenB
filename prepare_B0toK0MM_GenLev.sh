@@ -18,19 +18,19 @@
 voms-proxy-init --voms cms --out $(pwd)/voms_proxy.txt --hours 4
 export X509_USER_PROXY=$(pwd)/voms_proxy.txt
 
-# Dump actual test code to a BPH-RunIIFall18GS-00226_test.sh file that can be run in Singularity
+# Dump actual test code to a BPH-B0toK0MM_prep.sh file that can be run in Singularity
 cat <<'EndOfTestFile' > BPH-B0toK0MM_prep.sh
 #!/bin/bash
 
 export SCRAM_ARCH=slc7_amd64_gcc700
 
 source /cvmfs/cms.cern.ch/cmsset_default.sh
-if [ -r CMSSW_10_2_16_patch2/src ] ; then
-  echo release CMSSW_10_2_16_patch2 already exists
+if [ -r CMSSW_10_2_16_UL/src ] ; then
+  echo release CMSSW_10_2_16_UL already exists
 else
-  scram p CMSSW CMSSW_10_2_16_patch2
+  scram p CMSSW CMSSW_10_2_16_UL
 fi
-cd CMSSW_10_2_16_patch2/src
+cd CMSSW_10_2_16_UL/src
 eval `scram runtime -sh`
 
 # Download fragment from My GitHub

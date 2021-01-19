@@ -1,3 +1,4 @@
+# Script taken from https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/BPH-RunIIFall18GS-00226/0
 # Found 26 output events for 12000 input events.
 # Filter efficiency = 0.002167
 # Timing = 0.401640 sec/event

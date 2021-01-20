@@ -34,7 +34,7 @@ config.JobType.scriptExe = 'gen_job.sh'
 config.JobType.outputFiles = ['step0-GS-'+'BPHnoFilters_B0toK0MM'+'-result.root']
 #config.JobType.outputFiles = ['step0-GS-b_kmumu_PHSPS.root', 'step3-MiniAOD-b_kmumu_PHSPS.root', 'step4-NanoAOD-b_kmumu_PHSPS.root']
 
-config.Data.outputPrimaryDataset = myname
+config.Data.outputPrimaryDataset = 'Step0-BPHnoFilters_B0toK0MM'
 config.Data.splitting = 'EventBased'
 config.Data.unitsPerJob = nEvents
 config.Data.totalUnits = config.Data.unitsPerJob * NJOBS

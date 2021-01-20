@@ -43,4 +43,4 @@ config.Data.totalUnits = config.Data.unitsPerJob * NJOBS
 #config.Data.outLFNDirBase = '/store/user/hcrottel/'
 config.Data.publication = False
 
-config.Site.storageSite = 'T2_CH_CERNBOX'
+config.Site.storageSite = 'T3_CH_CERNBOX'

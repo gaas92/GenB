@@ -8,6 +8,8 @@ ts = time.time()
 st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d-%H-%M')
 
 
+nEvents = 100000
+NJOBS = 50
 
 config.General.requestName = '2018-PrivateMC-Step0'+'-BPHnoFilters_B0toK0MM'+'-'+st
 config.General.transferOutputs = True

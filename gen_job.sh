@@ -3,13 +3,13 @@
 START=0
 
 #Configuration 
-CHANNEL_DECAY="ZtoJpsiMuMu"
+CHANNEL_DECAY="B0toK0MM"
 
 
 
 SCRAM="slc7_amd64_gcc700"
 #RELEASE FOR EVERY STEP
-GEN_REL="CMSSW_10_2_20_UL"
+GEN_REL="CMSSW_10_2_16_UL"
 
 if [ $START -le 0 ];
 then

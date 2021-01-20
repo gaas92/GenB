@@ -17,7 +17,7 @@ config.General.transferLogs = False
 config.General.workArea = 'crab_'+'2018-PrivateMC-Step0'+'-BPHnoFilterB0toKMM'
 
 config.JobType.allowUndistributedCMSSW = True
-config.JobType.pluginName = '2018-PrivateMC-Step0-BPHnoFilterB0toKMM'
+config.JobType.pluginName = 'PrivateMC'
 config.JobType.psetName = 'BPHnoFilters_B0toK0MM_1_cfg.py'
 
 # For SIM  

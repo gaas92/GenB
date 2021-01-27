@@ -33,7 +33,7 @@ config.JobType.maxMemoryMB = 3500
 config.JobType.scriptExe = 'gen_job.sh'
 #config.JobType.scriptArgs = ["0"]
 
-config.JobType.outputFiles = ['step0-GS-'+'BPHnoFilters_B0toK0MM'+'-result.root']
+config.JobType.outputFiles = ['BPH_B0toK0MM_GenNF.root']
 #config.JobType.outputFiles = ['step0-GS-b_kmumu_PHSPS.root', 'step3-MiniAOD-b_kmumu_PHSPS.root', 'step4-NanoAOD-b_kmumu_PHSPS.root']
 
 config.Data.outputPrimaryDataset = 'Step0-BPHnoFilters_B0toK0MM'

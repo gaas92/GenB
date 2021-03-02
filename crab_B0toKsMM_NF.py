@@ -40,7 +40,7 @@ config.Data.outputPrimaryDataset = 'Step0-BPHnoFilters_B0toK0MM'
 config.Data.splitting = 'EventBased'
 config.Data.unitsPerJob = nEvents
 config.Data.totalUnits = config.Data.unitsPerJob * NJOBS
-#config.Data.outLFNDirBase = '/store/user/hcrottel/'
+config.Data.outLFNDirBase = '/store/user/gayalasa/GenTest/'
 config.Data.publication = False
 
 config.Site.storageSite = 'T3_CH_CERNBOX'

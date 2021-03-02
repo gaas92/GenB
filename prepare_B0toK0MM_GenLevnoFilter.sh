@@ -31,7 +31,7 @@ echo line_21_ok
 # According to 0.0022 efficiency, up to 10000 / 0.0022 = 4614674 events should run
 # Clamp (put value) 66973 within 1 and 4614674 -> 66973
 # It is estimated that this validation will produce: 66973 * 0.0022 = 145 events
-EVENTS=10000
+EVENTS=100000
 
 echo line_36_ok
 # cmsDriver command

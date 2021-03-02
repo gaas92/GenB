@@ -71,9 +71,9 @@ decayfilter = cms.EDFilter("PythiaDauVFilter", ## signal filter
         ParticleID      = cms.untracked.int32(511), 
         NumberDaughters = cms.untracked.int32(3),
         DaughterIDs     = cms.untracked.vint32(310, -13, 13),
-        #MinPt           = cms.untracked.vdouble(0.4, 1.2, 1.2),
-        #MaxEta          = cms.untracked.vdouble(3.5, 3.0, 3.0),
-        #MinEta          = cms.untracked.vdouble(-3.5, -3.0, -3.0), 
+        MinPt           = cms.untracked.vdouble(0.0, 0.0, 0.0),
+        MaxEta          = cms.untracked.vdouble(999.9, 999.9, 999.9),
+        MinEta          = cms.untracked.vdouble(-999.9, -999.9, -999.9), 
 )
 # 
 
@@ -83,17 +83,17 @@ probefilter = cms.EDFilter("PythiaProbeFilter", ## probe filter, use either this
     ParticleID      = cms.untracked.int32(13),
     MomID           = cms.untracked.int32(511), #B0
     SisterIDs       = cms.untracked.vint32(310,-13), #Lambda0 and mu
-    MinPt           = cms.untracked.double(4.), # third Mu with Pt > 4
-    MinEta          = cms.untracked.double(-2.5),
-    MaxEta          = cms.untracked.double(2.5)
+    MinPt           = cms.untracked.double(0.0), # third Mu with Pt > 4
+    MinEta          = cms.untracked.double(-999.9),
+    MaxEta          = cms.untracked.double(999.9)
 )
 # 
+ 
 
-
-#ProductionFilterSequence = cms.Sequence(generator*bdfilter*decayfilter*probefilter)     
+ProductionFilterSequence = cms.Sequence(generator*bdfilter*decayfilter*probefilter)     
 
 #ProductionFilterSequence = cms.Sequence(generator*bdfilter)     
 # 
-ProductionFilterSequence = cms.Sequence(generator*bdfilter*decayfilter)     
+#ProductionFilterSequence = cms.Sequence(generator*bdfilter*decayfilter)     
 
 # ProductionFilterSequence = cms.Sequence(generator*bdfilter*probefilter)  

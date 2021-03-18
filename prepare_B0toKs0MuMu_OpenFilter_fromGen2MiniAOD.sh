@@ -36,7 +36,7 @@ EVENTS=100000
 # Download fragment from myGitHub
 curl -s -k https://raw.githubusercontent.com/gaas92/MCgenScripts/master/$step0_fragmentfile --retry 3 --create-dirs -o Configuration/GenProduction/python/$step0_fragmentfile
 #curl -s -k https://raw.githubusercontent.com/gaas92/MCgenScripts/master/BPHnoFilters_B0toK0MM_GenFrag.py  --retry 3 --create-dirs -o Configuration/GenProduction/python/BPHnoFilters_B0toK0MM_GenFrag.py  
-[ -s Configuration/GenProduction/python/BPHnoFilters_B0toK0MM_GenFrag.py ] || exit $?;
+[ -s Configuration/GenProduction/python/$step0_fragmentfile ] || exit $?;
 scram b
 cd ../../
 

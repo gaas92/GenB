@@ -14,7 +14,7 @@ cd CMSSW_10_2_16_UL/src
 eval `scram runtime -sh`
 
 # Configuration parameters
-CHANNEL_DECAY="B0toKs0MumMu_BPH_OpenFilter"
+CHANNEL_DECAY="B0toKs0MuMu_BPH_OpenFilter"
 step0_fragmentfile="${CHANNEL_DECAY}-fragment.py"
 step0_configfile="step0-GS-${CHANNEL_DECAY}-run_cfg.py"
 step0_resultfile="step0-GS-${CHANNEL_DECAY}-result.root"

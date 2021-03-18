@@ -15,8 +15,8 @@ eval `scram runtime -sh`
 
 # Configuration parameters
 CHANNEL_DECAY="B0toKs0MuMu_BPH_OpenFilter"
-#step0_fragmentfile="${CHANNEL_DECAY}-fragment.py"
-step0_fragmentfile="BPHnoFilters_B0toK0MM_GenFrag.py"
+step0_fragmentfile="${CHANNEL_DECAY}-fragment.py"
+#step0_fragmentfile="BPHnoFilters_B0toK0MM_GenFrag.py"
 step0_configfile="step0-GS-${CHANNEL_DECAY}-run_cfg.py"
 step0_resultfile="step0-GS-${CHANNEL_DECAY}-result.root"
 
@@ -35,8 +35,7 @@ step0_resultfile="step0-GS-${CHANNEL_DECAY}-result.root"
 EVENTS=100000
 
 # Download fragment from myGitHub
-curl -s -k https://raw.githubusercontent.com/gaas92/MCgenScripts/master/$step0_fragmentfile --retry 3 --create-dirs -o Configuration/GenProduction/python/$step0_fragmentfile
-#curl -s -k https://raw.githubusercontent.com/gaas92/MCgenScripts/master/BPHnoFilters_B0toK0MM_GenFrag.py  --retry 3 --create-dirs -o Configuration/GenProduction/python/BPHnoFilters_B0toK0MM_GenFrag.py  
+curl -s -k https://raw.githubusercontent.com/gaas92/GenB/master/GenFragments/$step0_fragmentfile --retry 3 --create-dirs -o Configuration/GenProduction/python/$step0_fragmentfile
 [ -s Configuration/GenProduction/python/$step0_fragmentfile ] || exit $?;
 scram b
 cd ../../
@@ -44,7 +43,6 @@ cd ../../
 # taken from https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_setup/BPH-RunIIFall18GS-00251
 # cmsDriver command for GEN-SIM step0
 cmsDriver.py Configuration/GenProduction/python/$step0_fragmentfile --eventcontent RAWSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM --conditions 102X_upgrade2018_realistic_v11 --beamspot Realistic25ns13TeVEarly2018Collision --step GEN,SIM --geometry DB:Extended --era Run2_2018 --python_filename $step0_configfile --fileout file:$step0_resultfile --no_exec --mc -n $EVENTS || exit $?; 
-#cmsDriver.py Configuration/GenProduction/python/BPHnoFilters_B0toK0MM_GenFrag.py --eventcontent RAWSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM --conditions 102X_upgrade2018_realistic_v11 --beamspot Realistic25ns13TeVEarly2018Collision --step GEN,SIM --geometry DB:Extended --era Run2_2018 --python_filename $step0_configfile --fileout file:$step0_resultfile --no_exec --mc -n $EVENTS; 
 sed -i "20 a from IOMC.RandomEngine.RandomServiceHelper import RandomNumberServiceHelper \nrandSvc = RandomNumberServiceHelper(process.RandomNumberGeneratorService)\nrandSvc.populate()" $step0_configfile
 
 # step1 DIGI, DATAMIX, L1, DIGIRAW, HLT

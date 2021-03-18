@@ -36,13 +36,13 @@ EVENTS=100000
 # Download fragment from myGitHub
 curl -s -k https://raw.githubusercontent.com/gaas92/MCgenScripts/master/$step0_fragmentfile --retry 3 --create-dirs -o Configuration/GenProduction/python/$step0_fragmentfile
 #curl -s -k https://raw.githubusercontent.com/gaas92/MCgenScripts/master/BPHnoFilters_B0toK0MM_GenFrag.py  --retry 3 --create-dirs -o Configuration/GenProduction/python/BPHnoFilters_B0toK0MM_GenFrag.py  
-[ -s Configuration/GenProduction/python/BPHnoFilters_B0toK0MM_GenFrag.py ];
+[ -s Configuration/GenProduction/python/BPHnoFilters_B0toK0MM_GenFrag.py ] || exit $?;
 scram b
 cd ../../
 
 # taken from https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_setup/BPH-RunIIFall18GS-00251
 # cmsDriver command for GEN-SIM step0
-cmsDriver.py Configuration/GenProduction/python/$step0_fragmentfile --eventcontent RAWSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM --conditions 102X_upgrade2018_realistic_v11 --beamspot Realistic25ns13TeVEarly2018Collision --step GEN,SIM --geometry DB:Extended --era Run2_2018 --python_filename $step0_configfile --fileout file:$step0_resultfile --no_exec --mc -n $EVENTS; 
+cmsDriver.py Configuration/GenProduction/python/$step0_fragmentfile --eventcontent RAWSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM --conditions 102X_upgrade2018_realistic_v11 --beamspot Realistic25ns13TeVEarly2018Collision --step GEN,SIM --geometry DB:Extended --era Run2_2018 --python_filename $step0_configfile --fileout file:$step0_resultfile --no_exec --mc -n $EVENTS || exit $?; 
 #cmsDriver.py Configuration/GenProduction/python/BPHnoFilters_B0toK0MM_GenFrag.py --eventcontent RAWSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM --conditions 102X_upgrade2018_realistic_v11 --beamspot Realistic25ns13TeVEarly2018Collision --step GEN,SIM --geometry DB:Extended --era Run2_2018 --python_filename $step0_configfile --fileout file:$step0_resultfile --no_exec --mc -n $EVENTS; 
 sed -i "20 a from IOMC.RandomEngine.RandomServiceHelper import RandomNumberServiceHelper \nrandSvc = RandomNumberServiceHelper(process.RandomNumberGeneratorService)\nrandSvc.populate()" $step0_configfile
 
@@ -69,7 +69,7 @@ step1_resultfile="step1-PREMIXRAW-${CHANNEL_DECAY}-result.root"
 
 # TAKEN FROM https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_setup/BPH-RunIIAutumn18DR-00097
 # cmsDriver command for DIGI,L1,DIGI2RAW,HLT step1 mising DataMix don't know why
-cmsDriver.py  --python_filename $step1_configfile --eventcontent FEVTDEBUGHLT --pileup "AVE_25_BX_25ns,{'N': 20}" --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM-DIGI-RAW --fileout file:$step1_resultfile --pileup_input "dbs:/MinBias_TuneCP5_13TeV-pythia8/RunIIFall18GS-102X_upgrade2018_realistic_v9-v1/GEN-SIM" --conditions 102X_upgrade2018_realistic_v15 --step DIGI,L1,DIGI2RAW,HLT:@relval2018 --geometry DB:Extended --filein file:$step0_resultfile --era Run2_2018 --no_exec --mc -n $EVENTS;
+cmsDriver.py  --python_filename $step1_configfile --eventcontent FEVTDEBUGHLT --pileup "AVE_25_BX_25ns,{'N': 20}" --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM-DIGI-RAW --fileout file:$step1_resultfile --pileup_input "dbs:/MinBias_TuneCP5_13TeV-pythia8/RunIIFall18GS-102X_upgrade2018_realistic_v9-v1/GEN-SIM" --conditions 102X_upgrade2018_realistic_v15 --step DIGI,L1,DIGI2RAW,HLT:@relval2018 --geometry DB:Extended --filein file:$step0_resultfile --era Run2_2018 --no_exec --mc -n $EVENTS || exit $?;
 
 sed -i "20 a from IOMC.RandomEngine.RandomServiceHelper import RandomNumberServiceHelper\nrandSvc = RandomNumberServiceHelper(process.RandomNumberGeneratorService)\nrandSvc.populate()" $step1_configfile
 
@@ -88,7 +88,7 @@ step2_resultfile="step2-AODSIM-${CHANNEL_DECAY}-result.root"
 # taken from https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_setup/BPH-RunIIAutumn18RECOBParking-00080
 # cmsDriver command for RAW2DIGI,L1Reco,RECO,RECOSIM,EI step2 missing --procModifiers premix_stage2 i guess is the same isue 
 #cmsDriver.py  --python_filename $step2_configfile --eventcontent AODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier AODSIM --fileout file:$step2_resultfile --conditions 102X_upgrade2018_realistic_v15 --step RAW2DIGI,L1Reco,RECO,RECOSIM,EI --geometry DB:Extended --filein file:$step1_resultfile  --era Run2_2018 --runUnscheduled --no_exec --mc -n $EVENTS;
-cmsDriver.py  --python_filename $step2_configfile --eventcontent AODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier AODSIM --fileout file:$step2_resultfile --conditions 102X_upgrade2018_realistic_v15 --step RAW2DIGI,L1Reco,RECO,RECOSIM,EI --filein $step1_resultfile  --era Run2_2018,bParking --no_exec --mc -n $EVENTS; 
+cmsDriver.py  --python_filename $step2_configfile --eventcontent AODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier AODSIM --fileout file:$step2_resultfile --conditions 102X_upgrade2018_realistic_v15 --step RAW2DIGI,L1Reco,RECO,RECOSIM,EI --filein $step1_resultfile  --era Run2_2018,bParking --no_exec --mc -n $EVENTS || exit $?; 
 sed -i "20 a from IOMC.RandomEngine.RandomServiceHelper import RandomNumberServiceHelper\nrandSvc = RandomNumberServiceHelper(process.RandomNumberGeneratorService)\nrandSvc.populate()" $step2_configfile
 
 
@@ -114,4 +114,4 @@ step3_resultfile="step3-MINIAODSIM-${CHANNEL_DECAY}-result.root"
 #cmsDriver.py  --python_filename $step3_configfile --eventcontent MINIAODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier MINIAODSIM --fileout file:$step3_resultfile --conditions 102X_upgrade2018_realistic_v15 --step PAT --geometry DB:Extended --filein file:$step2_resultfile --era Run2_2018 --runUnscheduled --no_exec --mc -n $EVENTS;
 
 #taken from https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_setup/BPH-RunIIAutumn18MiniAOD-00259
-cmsDriver.py  --python_filename $step3_configfile --eventcontent MINIAODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier MINIAODSIM --fileout file:$step3_resultfile --conditions 102X_upgrade2018_realistic_v15 --step PAT --geometry DB:Extended --filein file:$step2_resultfile --era Run2_2018,bParking --runUnscheduled --no_exec --mc -n $EVENTS;
+cmsDriver.py  --python_filename $step3_configfile --eventcontent MINIAODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier MINIAODSIM --fileout file:$step3_resultfile --conditions 102X_upgrade2018_realistic_v15 --step PAT --geometry DB:Extended --filein file:$step2_resultfile --era Run2_2018,bParking --runUnscheduled --no_exec --mc -n $EVENTS || exit $?;

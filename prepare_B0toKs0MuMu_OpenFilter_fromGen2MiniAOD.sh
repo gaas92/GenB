@@ -87,7 +87,7 @@ step2_resultfile="step2-AODSIM-${CHANNEL_DECAY}-result.root"
 # taken from https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_setup/BPH-RunIIAutumn18RECOBParking-00080
 # cmsDriver command for RAW2DIGI,L1Reco,RECO,RECOSIM,EI step2 missing --procModifiers premix_stage2 i guess is the same isue 
 #cmsDriver.py  --python_filename $step2_configfile --eventcontent AODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier AODSIM --fileout file:$step2_resultfile --conditions 102X_upgrade2018_realistic_v15 --step RAW2DIGI,L1Reco,RECO,RECOSIM,EI --geometry DB:Extended --filein file:$step1_resultfile  --era Run2_2018 --runUnscheduled --no_exec --mc -n $EVENTS;
-cmsDriver.py  --python_filename $step2_configfile --eventcontent AODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier AODSIM --fileout file:$step2_resultfile --conditions 102X_upgrade2018_realistic_v15 --step RAW2DIGI,L1Reco,RECO,RECOSIM,EI --filein $step1_resultfile  --era Run2_2018,bParking --no_exec --mc -n $EVENTS || exit $?; 
+cmsDriver.py  --python_filename $step2_configfile --eventcontent AODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier AODSIM --fileout file:$step2_resultfile --conditions 102X_upgrade2018_realistic_v15 --step RAW2DIGI,L1Reco,RECO,RECOSIM,EI --filein file:$step1_resultfile  --era Run2_2018,bParking --no_exec --mc -n $EVENTS || exit $?; 
 sed -i "20 a from IOMC.RandomEngine.RandomServiceHelper import RandomNumberServiceHelper\nrandSvc = RandomNumberServiceHelper(process.RandomNumberGeneratorService)\nrandSvc.populate()" $step2_configfile
 
 

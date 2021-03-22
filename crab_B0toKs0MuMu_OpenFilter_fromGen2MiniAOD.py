@@ -10,8 +10,8 @@ st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d-%H-%M')
 channel = 'B0toKs0MuMu_BPH_OpenFilter'
 gen_var = '-run_cfg.py'
 step = 'PrivateMC-2018'
-nEvents = 500
-NJOBS = 400
+nEvents = 10000
+NJOBS = 10
 mygen = "step0-GS-"+channel+gen_var
 myname = step+'-'+channel
 

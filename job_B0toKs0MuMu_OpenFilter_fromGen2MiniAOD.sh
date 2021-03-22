@@ -86,7 +86,7 @@ then
 	scram b
 	cd ../../
 
-	cmsRun -e -j FrameworkJobReport.xml  step3-MINIAODSIM-${CHANNEL_DECAY}-   run_cfg.py
+	cmsRun -e -j FrameworkJobReport.xml  step3-MINIAODSIM-${CHANNEL_DECAY}-run_cfg.py
 	#cleaning
 	#rm -rfv step2-DR-${CHANNEL_DECAY}.root
 fi

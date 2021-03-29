@@ -15,7 +15,7 @@ eval `scram runtime -sh`
 
 # Configuration parameters
 CHANNEL_DECAY="B0toKs0MuMu_BPH_noProbeFilterOpenDecayFilterGen"
-step0_fragmentfile="B0toKs0MuMu_BPH_noProbeFilterOpenDecayFilterGen-fragment.py"
+step0_fragmentfile="B0toKs0MuMu_BPH_noProbeFilterOpenDecayFilter-fragment.py"
 #step0_fragmentfile="BPHnoFilters_B0toK0MM_GenFrag.py"
 step0_configfile="step0-GS-${CHANNEL_DECAY}-run_cfg.py"
 step0_resultfile="step0-GS-${CHANNEL_DECAY}-result.root"

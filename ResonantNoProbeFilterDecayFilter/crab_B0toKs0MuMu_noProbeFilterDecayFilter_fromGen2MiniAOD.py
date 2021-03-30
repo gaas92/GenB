@@ -7,7 +7,7 @@ config = config()
 ts = time.time()
 st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d-%H-%M')
 
-channel = 'B0toKs0MuMu_BPH_noProbeFilterDecayFilter'
+channel = 'B0toKs0JpsiMuMu_BPH_noProbeFilterDecayFilter'
 gen_var = '-run_cfg.py'
 step = 'PrivateMC-2018'
 nEvents = 100000
@@ -33,7 +33,7 @@ config.JobType.disableAutomaticOutputCollection = True
 config.JobType.eventsPerLumi = 10000
 config.JobType.numCores = 1
 config.JobType.maxMemoryMB = 3500
-config.JobType.scriptExe = 'job_B0toKs0MuMu_noProbeFilterDecayFilter_fromGen2MiniAOD.sh'
+config.JobType.scriptExe = 'job_B0toKs0JpsiMuMu_BPH_noProbeFilterDecayFilter_fromGen2MiniAOD.sh'
 #config.JobType.scriptArgs = ["0"]
 
 #config.JobType.outputFiles = ['step0-GS-'+channel+gen_frag+'-result.root']

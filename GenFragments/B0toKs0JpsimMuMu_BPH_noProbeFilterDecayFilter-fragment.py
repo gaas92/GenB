@@ -1,8 +1,8 @@
-# Script taken from https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/BPH-RunIIFall18GS-00226/0
-# Found 26 output events for 12000 input events.
-# Filter efficiency = 0.002167
-# Timing = 0.401640 sec/event
-# Event size = 703.7 kB/event
+# Script taken from https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/BPH-RunIIFall18GS-00224/0
+# Filter efficiency = 0.002333
+# Timing = 0.398820 sec/event
+# Event size = 569.4 kB/event
+
 import FWCore.ParameterSet.Config as cms
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
 from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *
@@ -22,6 +22,8 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
             user_decay_embedded= cms.vstring(
 '#',
 '# Particles updated from PDG2018 https://journals.aps.org/prd/abstract/10.1103/PhysRevD.98.030001',
+'Particle   pi+         1.3957061e-01   0.0000000e+00',
+'Particle   pi-         1.3957061e-01   0.0000000e+00',
 'Particle   K_S0        4.9761100e-01   0.0000000e+00',
 'Particle   J/psi       3.0969000e+00   9.2900006e-05',
 'Particle   B0          5.2796300e+00   0.0000000e+00',
@@ -31,8 +33,15 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
 'Alias      Myanti-B0   anti-B0',
 'ChargeConj Myanti-B0   MyB0',
 '#',
+'Alias       Mypsi      J/psi',
+'ChargeConj  Mypsi      Mypsi',
+'#',
+'Decay Mypsi',
+'1.000  mu+       mu-                     PHOTOS VLL;',
+'Enddecay',
+'#',
 'Decay MyB0',
-'1.000    K_S0  mu+ mu-  PHOTOS  PHSP;',
+'1.000     Mypsi  K_S0      PHSP;',
 'Enddecay',
 'CDecay Myanti-B0',
 'End'
@@ -69,20 +78,33 @@ bdfilter = cms.EDFilter("PythiaFilter", ParticleID = cms.untracked.int32(511))
 decayfilter = cms.EDFilter("PythiaDauVFilter", ## signal filter
         verbose         = cms.untracked.int32(0),
         ParticleID      = cms.untracked.int32(511), 
-        NumberDaughters = cms.untracked.int32(3),
-        DaughterIDs     = cms.untracked.vint32(310, -13, 13),
-        MinPt           = cms.untracked.vdouble(0.5, 1.2, 1.2),    #cms.untracked.vdouble(0.4, 1.2, 1.2),
-        MaxEta          = cms.untracked.vdouble(3.0, 2.6, 2.6),    #cms.untracked.vdouble(3.5, 3.0, 3.0),
-        MinEta          = cms.untracked.vdouble(-3.0, -2.6, -2.6), #cms.untracked.vdouble(-3.5, -3.0, -3.0), 
+        NumberDaughters = cms.untracked.int32(2), 
+        DaughterIDs     = cms.untracked.vint32(443, 310),
+        MinPt           = cms.untracked.vdouble(0.0, 0.5,),   #cms.untracked.vdouble(0.2, 0.4,),
+        MaxEta          = cms.untracked.vdouble(9999, 3.0,),  #cms.untracked.vdouble( 9999, 3.0,),
+        MinEta          = cms.untracked.vdouble(-9999, -3.0), #cms.untracked.vdouble(-9999,  -3.0), 
 )
 # 
+jpsifilter = cms.EDFilter(
+        "PythiaDauVFilter",
+	verbose         = cms.untracked.int32(0), 
+	NumberDaughters = cms.untracked.int32(2), 
+	MotherID        = cms.untracked.int32(511),  
+	ParticleID      = cms.untracked.int32(443),  
+    DaughterIDs     = cms.untracked.vint32(13,    -13),
+	MinPt           = cms.untracked.vdouble( 1.2, 1.2),  #cms.untracked.vdouble(1.2,   1.2), 
+	MinEta          = cms.untracked.vdouble(-2.6,-2.6),  #cms.untracked.vdouble(-3.0, -3.0), 
+	MaxEta          = cms.untracked.vdouble( 2.6, 2.6)   #cms.untracked.vdouble( 3.0,  3.0)
+        )
 
- 
 
-#ProductionFilterSequence = cms.Sequence(generator*bdfilter*decayfilter*probefilter)     
 
-#ProductionFilterSequence = cms.Sequence(generator*bdfilter)     
+
+
+ProductionFilterSequence = cms.Sequence(generator*bdfilter*decayfilter*jpsifilter) 
+
+# ProductionFilterSequence = cms.Sequence(generator*bdfilter)     
 # 
-ProductionFilterSequence = cms.Sequence(generator*bdfilter*decayfilter)     
+# ProductionFilterSequence = cms.Sequence(generator*bdfilter*decayfilter)     
 
-# ProductionFilterSequence = cms.Sequence(generator*bdfilter*probefilter)  
+# ProductionFilterSequence = cms.Sequence(generator*bdfilter*probefilter)    

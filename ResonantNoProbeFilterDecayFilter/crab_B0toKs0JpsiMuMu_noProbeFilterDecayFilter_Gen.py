@@ -30,7 +30,7 @@ config.JobType.disableAutomaticOutputCollection = True
 config.JobType.eventsPerLumi = 10000
 config.JobType.numCores = 1
 config.JobType.maxMemoryMB = 3500
-config.JobType.scriptExe = 'job_B0toKs0JpsiMuMu_BPH_noProbeFilterDecayFilter_Gen.sh'
+config.JobType.scriptExe = 'job_B0toKs0JpsiMuMu_noProbeFilterDecayFilter_Gen.sh'
 #config.JobType.scriptArgs = ["0"]
 
 #config.JobType.outputFiles = ['step0-GS-'+channel+gen_frag+'-result.root']

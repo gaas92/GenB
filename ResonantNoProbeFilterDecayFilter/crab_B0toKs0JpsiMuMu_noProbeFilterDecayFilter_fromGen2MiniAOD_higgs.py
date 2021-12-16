@@ -12,7 +12,7 @@ gen_var = '-run_cfg.py'
 step = 'PrivateMC-2018'
 nEvents = 5000
 NJOBS = 5000
-mygen = "step0-GS-"+channel+gen_var
+mygen = "step0-GS-"+channel+gen_var 
 myname = step+'-'+channel
 
 config.General.requestName = step+'-'+channel+'-'+st

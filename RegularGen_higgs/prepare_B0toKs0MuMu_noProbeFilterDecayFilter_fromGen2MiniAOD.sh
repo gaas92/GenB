@@ -32,7 +32,7 @@ step0_resultfile="step0-GS-${CHANNEL_DECAY}-result.root"
 # According to 0.0022 efficiency, up to 10000 / 0.0022 = 4614674 events should run
 # Clamp (put value) 66973 within 1 and 4614674 -> 66973
 # It is estimated that this validation will produce: 66973 * 0.0022 = 145 events
-EVENTS=10
+EVENTS=10000
 
 # Download fragment from myGitHub
 curl -s -k https://raw.githubusercontent.com/gaas92/GenB/master/GenFragments/$step0_fragmentfile --retry 3 --create-dirs -o Configuration/GenProduction/python/$step0_fragmentfile

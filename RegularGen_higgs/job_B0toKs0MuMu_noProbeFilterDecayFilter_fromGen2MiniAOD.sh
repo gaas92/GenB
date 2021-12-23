@@ -32,9 +32,9 @@ then
 	cd ../../
 
 	echo "==================== PB: CMSRUN starting Gen step ===================="
-	cmsRun -e -j ${CHANNEL_DECAY}_step0.log  -p PSet.py
+	#cmsRun -e -j ${CHANNEL_DECAY}_step0.log  -p PSet.py
     #cmsRun -e -j FrameworkJobReport.xml -p PSet.py
-	#cmsRun -j ${CHANNEL_DECAY}_step0.log -p step0-GS-${CHANNEL_DECAY}_cfg.py
+	cmsRun -j ${CHANNEL_DECAY}_step0.log -p step0-GS-${CHANNEL_DECAY}_cfg.py
 fi
 
 if [ $START -le 1 ];
@@ -54,7 +54,7 @@ then
 	echo "==================== PB: CMSRUN starting Reco step ===================="
 	cmsRun -e -j ${CHANNEL_DECAY}_step1.log step1-PREMIXRAW-${CHANNEL_DECAY}-run_cfg.py
 	#cleaning
-	#rm -rfv step0-GS-${CHANNEL_DECAY}.root
+	rm -rfv step0-GS-${CHANNEL_DECAY}.root
 fi
 
 if [ $START -le 2 ];
@@ -88,5 +88,5 @@ then
 
 	cmsRun -e -j FrameworkJobReport.xml  step3-MINIAODSIM-${CHANNEL_DECAY}-run_cfg.py
 	#cleaning
-	#rm -rfv step2-DR-${CHANNEL_DECAY}.root
+	rm -rfv step2-DR-${CHANNEL_DECAY}.root
 fi

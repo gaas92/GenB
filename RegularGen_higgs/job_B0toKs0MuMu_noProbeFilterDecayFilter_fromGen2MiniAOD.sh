@@ -34,7 +34,7 @@ then
 	echo "==================== PB: CMSRUN starting Gen step ===================="
 	#cmsRun -e -j ${CHANNEL_DECAY}_step0.log  -p PSet.py
     #cmsRun -e -j FrameworkJobReport.xml -p PSet.py
-	cmsRun -j ${CHANNEL_DECAY}_step0.log -p step0-GS-${CHANNEL_DECAY}_cfg.py
+	cmsRun -j ${CHANNEL_DECAY}_step0.log -p step0-GS-${CHANNEL_DECAY}-run_cfg.py
 fi
 
 if [ $START -le 1 ];

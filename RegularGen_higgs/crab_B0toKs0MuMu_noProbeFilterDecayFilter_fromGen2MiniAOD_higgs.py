@@ -7,7 +7,7 @@ config = config()
 ts = time.time()
 st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d-%H-%M')
 
-channel = 'B0toKs0MuMu_BPH_noProbeFilterDecayFilter'
+channel = 'B0toKs0MuMu_RegularGen'
 gen_var = '-run_cfg.py'
 step = 'PrivateMC-2018'
 nEvents = 5000

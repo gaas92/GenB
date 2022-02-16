@@ -7,7 +7,8 @@ SCRAM="slc7_amd64_gcc700"
 #RELEASE FOR EVERY STEP
 #NOTE! AOD STEP REQUIRES SAME RELEASE W.R.T MINIAOD
 #AT LEAST FOR THIS MC PRODUCTION
-S0_REL="CMSSW_10_2_16_UL"
+#S0_REL="CMSSW_10_2_16_UL"
+S0_REL="CMSSW_10_2_20_UL"
 S1_REL="CMSSW_10_2_13"
 S2_REL="CMSSW_10_2_13"
 S3_REL="CMSSW_10_2_14"
@@ -35,7 +36,7 @@ then
 	cmsRun -e -j ${CHANNEL_DECAY}_step0.log  -p PSet.py
     #cmsRun -e -j FrameworkJobReport.xml -p PSet.py
 	#cmsRun -j ${CHANNEL_DECAY}_step0.log -p step0-GS-${CHANNEL_DECAY}-run_cfg.py
-fi
+fi 
 
 if [ $START -le 1 ];
 then

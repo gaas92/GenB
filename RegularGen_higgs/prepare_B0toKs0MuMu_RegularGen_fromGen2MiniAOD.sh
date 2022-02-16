@@ -5,13 +5,24 @@
 # step0 GEN-SIM
 export SCRAM_ARCH=slc7_amd64_gcc700
 source /cvmfs/cms.cern.ch/cmsset_default.sh
-if [ -r CMSSW_10_2_16_UL/src ] ; then
-  echo release CMSSW_10_2_16_UL already exists
+#if [ -r CMSSW_10_2_16_UL/src ] ; then
+#  echo release CMSSW_10_2_16_UL already exists
+#else
+#  scram p CMSSW CMSSW_10_2_16_UL
+#fi
+#cd CMSSW_10_2_16_UL/src
+#eval `scram runtime -sh`
+# Change for GEN, in official they use CMSSW_10_2_20(_UL)
+
+if [ -r CMSSW_10_2_20_UL/src ] ; then
+  echo release CMSSW_10_2_20_UL already exists
 else
-  scram p CMSSW CMSSW_10_2_16_UL
+  scram p CMSSW CMSSW_10_2_20_UL
 fi
-cd CMSSW_10_2_16_UL/src
+cd CMSSW_10_2_20_UL/src
 eval `scram runtime -sh`
+
+
 
 # Configuration parameters
 CHANNEL_DECAY="B0toKs0MuMu_RegularGen"
@@ -33,7 +44,7 @@ step0_resultfile="step0-GS-${CHANNEL_DECAY}-result.root"
 # Clamp (put value) 66973 within 1 and 4614674 -> 66973
 # It is estimated that this validation will produce: 66973 * 0.0022 = 145 events
 EVENTS=10000
-
+ 
 # Download fragment from myGitHub
 curl -s -k https://raw.githubusercontent.com/gaas92/GenB/master/GenFragments/$step0_fragmentfile --retry 3 --create-dirs -o Configuration/GenProduction/python/$step0_fragmentfile
 [ -s Configuration/GenProduction/python/$step0_fragmentfile ] || exit $?;

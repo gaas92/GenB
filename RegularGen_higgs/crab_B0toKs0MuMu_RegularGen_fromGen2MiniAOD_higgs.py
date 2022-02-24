@@ -47,6 +47,6 @@ config.Data.totalUnits = config.Data.unitsPerJob * NJOBS
 #config.Data.outLFNDirBase = '/store/user/hcrottel/'
 config.Data.publication = False
 
-config.Data.outLFNDirBase = '/store/user/gayalasa/'+step+channel+'/'
-#config.Site.storageSite = 'T3_MX_Cinvestav'
-config.Site.storageSite = 'T3_CH_CERNBOX' 
+#config.Data.outLFNDirBase = '/store/user/gayalasa/'+step+channel+'/'
+config.Site.storageSite = 'T3_MX_Cinvestav'
+#config.Site.storageSite = 'T3_CH_CERNBOX' 

@@ -44,13 +44,13 @@ cd ../..
 # According to 0.0417 efficiency, validation should run 10000 / 0.0417 = 239714 events to reach the limit of 10000
 # Take the minimum of 33927 and 239714, but more than 0 -> 33927
 # It is estimated that this validation will produce: 33927 * 0.0417 = 1415 events
-EVENTS= 100 #33927
+EVENTS=100 #33927
 
 # cmsDriver command
 cmsDriver.py Configuration/GenProduction/python/$step0_fragmentfile --python_filename $step0_configfile --eventcontent RAWSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM --fileout file:$step0_resultfile --conditions 124X_mcRun3_2022_realistic_v12 --beamspot Realistic25ns13p6TeVEarly2022Collision --customise_commands process.source.numberEventsInLuminosityBlock="cms.untracked.uint32(2397)" --step GEN,SIM --geometry DB:Extended --era Run3 --no_exec --mc -n $EVENTS || exit $? ;
 #check if necessary
 sed -i "20 a from IOMC.RandomEngine.RandomServiceHelper import RandomNumberServiceHelper \nrandSvc = RandomNumberServiceHelper(process.RandomNumberGeneratorService)\nrandSvc.populate()" $step0_configfile
-
+echo cmsDriver for step-0 Gen ok 
 
 # step1 DIGI, DATAMIX, L1, DIGIRAW, HLT
 
@@ -81,6 +81,7 @@ step1_resultfile="step1-PREMIXRAW-${CHANNEL_DECAY}-result.root"
 # cmsDriver command for 2022 BPH analysis https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_test/TSG-Run3Summer22DRPremix-00057
 cmsDriver.py  --python_filename $step1_configfile --eventcontent PREMIXRAW --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM-RAW --fileout file:$step1_resultfile --pileup_input "dbs:/Neutrino_E-10_gun/Run3Summer21PrePremix-Summer22_124X_mcRun3_2022_realistic_v11-v2/PREMIX" --conditions 124X_mcRun3_2022_realistic_v12 --step DIGI,DATAMIX,L1,DIGI2RAW,HLT:2022v12 --procModifiers premix_stage2,siPixelQualityRawToDigi --geometry DB:Extended --filein file:$step0_resultfile --datamix PreMix --era Run3 --no_exec --mc -n $EVENTS || exit $? ;
 sed -i "20 a from IOMC.RandomEngine.RandomServiceHelper import RandomNumberServiceHelper\nrandSvc = RandomNumberServiceHelper(process.RandomNumberGeneratorService)\nrandSvc.populate()" $step1_configfile
+echo cmsDriver for step-1 DIGI ok 
 
 
 # step2 AODSIM
@@ -113,6 +114,7 @@ step2_resultfile="step2-AODSIM-${CHANNEL_DECAY}-result.root"
 #cmsDriver taken (check RECO filecontent and extra config) taken from https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_test/TSG-Run3Winter23Reco-00136
 cmsDriver.py  --python_filename $step2_configfile --eventcontent RECOSIM,AODSIM --customise RecoParticleFlow/PFClusterProducer/particleFlow_HB2023.customiseHB2023,Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM-RECO,AODSIM --fileout file:$step2_resultfile --conditions 126X_mcRun3_2023_forPU65_v3 --step RAW2DIGI,L1Reco,RECO,RECOSIM --geometry DB:Extended --filein file:$step1_resultfile --era Run3_2023 --no_exec --mc -n $EVENTS || exit $? ;
 sed -i "20 a from IOMC.RandomEngine.RandomServiceHelper import RandomNumberServiceHelper\nrandSvc = RandomNumberServiceHelper(process.RandomNumberGeneratorService)\nrandSvc.populate()" $step2_configfile
+echo cmsDriver for step-2 RECO ok 
 
 
 # step3 MINIAODSIM
@@ -131,3 +133,4 @@ step3_resultfile="step3-MINIAODSIM-${CHANNEL_DECAY}-result.root"
 #cmsDriver.py  --python_filename $step3_configfile --eventcontent MINIAODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier MINIAODSIM --fileout file:$step3_resultfile --conditions 102X_upgrade2018_realistic_v15 --step PAT --geometry DB:Extended --filein file:$step2_resultfile --era Run2_2018 --runUnscheduled --no_exec --mc -n $EVENTS || exit $?;
 # cmadriver for miniAOD takrn from https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_test/TSG-Run3Winter23MiniAOD-00136
 cmsDriver.py  --python_filename $step3_configfile --eventcontent MINIAODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier MINIAODSIM --fileout file:$step3_resultfile --conditions 126X_mcRun3_2023_forPU65_v3 --step PAT --geometry DB:Extended --filein file:$step2_resultfile --era Run3_2023 --no_exec --mc -n $EVENTS || exit $? ;
+echo cmsDriver for step-3 MINIAOD ok 

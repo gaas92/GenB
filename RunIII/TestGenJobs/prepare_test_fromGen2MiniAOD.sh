@@ -79,7 +79,8 @@ step1_resultfile="step1-PREMIXRAW-${CHANNEL_DECAY}-result.root"
 # cmsDriver.py  --python_filename $step1_configfile --eventcontent FEVTDEBUGHLT --pileup "AVE_25_BX_25ns,{'N': 20}" --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM-DIGI-RAW --fileout file:$step1_resultfile --pileup_input "dbs:/MinBias_TuneCP5_13TeV-pythia8/RunIIFall18GS-102X_upgrade2018_realistic_v9-v1/GEN-SIM" --conditions 102X_upgrade2018_realistic_v15 --step DIGI,L1,DIGI2RAW,HLT:@relval2018 --geometry DB:Extended --filein file:$step0_resultfile --era Run2_2018 --no_exec --mc -n $EVENTS || exit $?;
 
 # cmsDriver command for 2022 BPH analysis https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_test/TSG-Run3Summer22DRPremix-00057
-cmsDriver.py  --python_filename $step1_configfile --eventcontent PREMIXRAW --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM-RAW --fileout file:$step1_resultfile --pileup_input "dbs:/Neutrino_E-10_gun/Run3Summer21PrePremix-Summer22_124X_mcRun3_2022_realistic_v11-v2/PREMIX" --conditions 124X_mcRun3_2022_realistic_v12 --step DIGI,DATAMIX,L1,DIGI2RAW,HLT:2022v12 --procModifiers premix_stage2,siPixelQualityRawToDigi --geometry DB:Extended --filein file:$step0_resultfile --datamix PreMix --era Run3 --no_exec --mc -n $EVENTS || exit $? ;
+# cmsDriver.py  --python_filename $step1_configfile --eventcontent PREMIXRAW --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM-RAW --fileout file:$step1_resultfile --pileup_input "dbs:/Neutrino_E-10_gun/Run3Summer21PrePremix-Summer22_124X_mcRun3_2022_realistic_v11-v2/PREMIX" --conditions 124X_mcRun3_2022_realistic_v12 --step DIGI,DATAMIX,L1,DIGI2RAW,HLT:2022v12 --procModifiers premix_stage2,siPixelQualityRawToDigi --geometry DB:Extended --filein file:$step0_resultfile --datamix PreMix --era Run3 --no_exec --mc -n $EVENTS || exit $? ;
+cmsDriver.py  --python_filename $step1_configfile --eventcontent PREMIXRAW --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM-RAW --fileout file:$step1_resultfile --pileup_input "file:/store/mc/RunIISummer20ULPrePremix/Neutrino_E-10_gun/PREMIX/UL16_106X_mcRun2_asymptotic_v13-v1/120004/358A7F8C-2ED3-3B4C-8F5D-64A7B2DF6B34.root" --conditions 124X_mcRun3_2022_realistic_v12 --step DIGI,DATAMIX,L1,DIGI2RAW,HLT:2022v12 --procModifiers premix_stage2,siPixelQualityRawToDigi --geometry DB:Extended --filein file:$step0_resultfile --datamix PreMix --era Run3 --no_exec --mc -n $EVENTS || exit $? ;
 sed -i "20 a from IOMC.RandomEngine.RandomServiceHelper import RandomNumberServiceHelper\nrandSvc = RandomNumberServiceHelper(process.RandomNumberGeneratorService)\nrandSvc.populate()" $step1_configfile
 echo cmsDriver for step-1 DIGI ok 
 
@@ -118,7 +119,7 @@ echo cmsDriver for step-2 RECO ok
 
 
 # step3 MINIAODSIM
-# same cmssw
+# same cmssw  
 
 # Configuration parameters 
 step3_configfile="step3-MINIAODSIM-${CHANNEL_DECAY}-run_cfg.py"

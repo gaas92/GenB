@@ -9,9 +9,9 @@ st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d-%H-%M')
 
 channel = 'BdToKs0JpsiMuMu'
 gen_var = '-run_cfg.py'
-step = 'PrivateMC-2023'
-nEvents = 96436
-NJOBS = 1000
+step = 'PrivateMC-2022'
+nEvents = 33927
+NJOBS = 100
 mygen = "step0-GS-"+channel+gen_var
 myname = step+'-'+channel
 

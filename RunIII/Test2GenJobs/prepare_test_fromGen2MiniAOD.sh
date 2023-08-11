@@ -24,7 +24,7 @@ curl -s -k https://raw.githubusercontent.com/gaas92/GenB/master/RunIII/GenFragme
 
 # Check if fragment contais gridpack path ant that it is in cvmfs
 if grep -q "gridpacks" Configuration/GenProduction/python/$step0_fragmentfile; then
-  if ! grep -q "/cvmfs/cms.cern.ch/phys_generator/gridpacks" Configuration/GenProduction/python/$step0_fragmentfile then
+  if ! grep -q "/cvmfs/cms.cern.ch/phys_generator/gridpacks" Configuration/GenProduction/python/$step0_fragmentfile; then
     echo "Gridpack inside fragment is not in cvmfs."
     exit -1
   fi

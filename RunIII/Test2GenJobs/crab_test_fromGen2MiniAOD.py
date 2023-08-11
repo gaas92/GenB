@@ -9,9 +9,9 @@ st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d-%H-%M')
 
 channel = 'BdToKs0JpsiMuMu'
 gen_var = '-run_cfg.py'
-step = 'PrivateMC-2022'
-nEvents = 33927
-NJOBS = 100
+step = 'PrivateMC-2023'
+nEvents = 96436
+NJOBS = 1000
 mygen = "step0-GS-"+channel+gen_var
 myname = step+'-'+channel
 
@@ -25,7 +25,7 @@ config.JobType.pluginName = 'PrivateMC'
 config.JobType.psetName = mygen
 
 # For SIM  
-config.JobType.inputFiles = ['step1-PREMIXRAW-'+channel+gen_var,
+config.JobType.inputFiles = ['step1-GENSIMRAW-'+channel+gen_var,
                              'step2-AODSIM-'+channel+gen_var,
                              'step3-MINIAODSIM-'+channel+gen_var]
 

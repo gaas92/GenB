@@ -25,7 +25,7 @@ config.JobType.pluginName = 'PrivateMC'
 config.JobType.psetName = mygen
 
 # For SIM  
-config.JobType.inputFiles = ['step1-PREMIXRAW-'+channel+gen_var,
+config.JobType.inputFiles = ['step1-GENSIMRAW-'+channel+gen_var,
                              'step2-AODSIM-'+channel+gen_var,
                              'step3-MINIAODSIM-'+channel+gen_var]
 

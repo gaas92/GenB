@@ -1,7 +1,8 @@
 
 #!/bin/bash
 
-export SCRAM_ARCH=el8_amd64_gcc10
+#for some reason this doesn't work
+#export SCRAM_ARCH=el8_amd64_gcc10
 
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 if [ -r CMSSW_12_6_4/src ] ; then
@@ -23,13 +24,12 @@ curl -s -k https://raw.githubusercontent.com/gaas92/GenB/master/RunIII/GenFragme
 [ -s Configuration/GenProduction/python/$step0_fragmentfile ] || exit $?;
 
 # Check if fragment contais gridpack path ant that it is in cvmfs
-# for some reason this doesn't work
-#if grep -q "gridpacks" Configuration/GenProduction/python/$step0_fragmentfile; then
-#  if ! grep -q "/cvmfs/cms.cern.ch/phys_generator/gridpacks" Configuration/GenProduction/python/$step0_fragmentfile; then
-#    echo "Gridpack inside fragment is not in cvmfs."
-#    exit -1
-#  fi
-#fi
+if grep -q "gridpacks" Configuration/GenProduction/python/$step0_fragmentfile; then
+  if ! grep -q "/cvmfs/cms.cern.ch/phys_generator/gridpacks" Configuration/GenProduction/python/$step0_fragmentfile; then
+    echo "Gridpack inside fragment is not in cvmfs."
+    exit -1
+  fi
+fi
 scram b
 cd ../..
 
@@ -55,7 +55,8 @@ echo cmsDriver for step-0 Gen ok
 
 # step1 DIGI, 
 
-export SCRAM_ARCH=el8_amd64_gcc10
+#export SCRAM_ARCH=el8_amd64_gcc10
+#for some reason this doesn't work
 
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 if [ -r CMSSW_12_6_4/src ] ; then
@@ -92,7 +93,8 @@ echo cmsDriver for step-1 ok
 
 # step2 
 
-export SCRAM_ARCH=el8_amd64_gcc10
+#export SCRAM_ARCH=el8_amd64_gcc10
+#for some reason this doesn't work
 
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 if [ -r CMSSW_12_6_4/src ] ; then
@@ -129,7 +131,8 @@ echo cmsDriver for step-2 RECO ok
 
 
 # step3 MINIAODSIM
-export SCRAM_ARCH=el8_amd64_gcc10
+#export SCRAM_ARCH=el8_amd64_gcc10
+#for some reason this doesn't work
 
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 if [ -r CMSSW_12_6_4/src ] ; then

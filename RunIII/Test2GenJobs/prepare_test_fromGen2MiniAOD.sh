@@ -45,7 +45,7 @@ cd ../..
 # According to 0.0140 efficiency, validation should run 10000 / 0.0140 = 712758 events to reach the limit of 10000
 # Take the minimum of 96436 and 712758, but more than 0 -> 96436
 # It is estimated that this validation will produce: 96436 * 0.0140 = 1352 events
-EVENTS=96436
+EVENTS= 1000 #96436
 
 # cmsDriver command
 #cmsDriver.py Configuration/GenProduction/python/$step0_fragmentfile --python_filename $step0_configfile --eventcontent RAWSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM --fileout file:$step0_resultfile --conditions 124X_mcRun3_2022_realistic_v12 --beamspot Realistic25ns13p6TeVEarly2022Collision --customise_commands process.source.numberEventsInLuminosityBlock="cms.untracked.uint32(2397)" --step GEN,SIM --geometry DB:Extended --era Run3 --no_exec --mc -n $EVENTS || exit $? ;

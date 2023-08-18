@@ -1,16 +1,17 @@
 
 #!/bin/bash
- 
+#all steps from https://cms-pdmv.cern.ch/mcm/requests?dataset_name=B0ToJpsiK0s_JMM_BMuFilter_DGamma0_SoftQCDnonD_TuneCP5_13p6TeV-pythia8-evtgen&page=0&shown=2151677971 
 #for some reason this doesn't work
+
 #export SCRAM_ARCH=el8_amd64_gcc10
 
 source /cvmfs/cms.cern.ch/cmsset_default.sh
-if [ -r CMSSW_12_5_0/src ] ; then
-  echo release CMSSW_12_5_0 already exists
+if [ -r CMSSW_12_4_11_patch3/src ] ; then
+  echo release CMSSW_12_4_11_patch3 already exists
 else
-  scram p CMSSW CMSSW_12_5_0
+  scram p CMSSW CMSSW_12_4_11_patch3
 fi
-cd CMSSW_12_5_0/src
+cd CMSSW_12_4_11_patch3/src
 eval `scram runtime -sh`
 
 
@@ -34,24 +35,25 @@ fi
 scram b
 cd ../..
 
-# Maximum validation duration: 115200s
+# Maximum validation duration: 57600s
 # Margin for validation duration: 30%
-# Validation duration with margin: 115200 * (1 - 0.30) = 80640s
-# Time per event for each sequence: 0.8362s
+# Validation duration with margin: 57600 * (1 - 0.30) = 40320s
+# Time per event for each sequence: 1.1030s
 # Threads for each sequence: 1
-# Time per event for single thread for each sequence: 1 * 0.8362s = 0.8362s
-# Which adds up to 0.8362s per event
-# Single core events that fit in validation duration: 80640s / 0.8362s = 96436
+# Time per event for single thread for each sequence: 1 * 1.1030s = 1.1030s
+# Which adds up to 1.1030s per event
+# Single core events that fit in validation duration: 40320s / 1.1030s = 36554
 # Produced events limit in McM is 10000
 # According to 0.0140 efficiency, validation should run 10000 / 0.0140 = 712758 events to reach the limit of 10000
-# Take the minimum of 96436 and 712758, but more than 0 -> 96436
-# It is estimated that this validation will produce: 96436 * 0.0140 = 1352 events
-EVENTS=9643 #96436 #96436
+# Take the minimum of 36554 and 712758, but more than 0 -> 36554
+# It is estimated that this validation will produce: 36554 * 0.0140 = 512 events
+EVENTS=100 #36554
 
 # cmsDriver command
 #cmsDriver.py Configuration/GenProduction/python/$step0_fragmentfile --python_filename $step0_configfile --eventcontent RAWSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM --fileout file:$step0_resultfile --conditions 124X_mcRun3_2022_realistic_v12 --beamspot Realistic25ns13p6TeVEarly2022Collision --customise_commands process.source.numberEventsInLuminosityBlock="cms.untracked.uint32(2397)" --step GEN,SIM --geometry DB:Extended --era Run3 --no_exec --mc -n $EVENTS || exit $? ;
+#cmsDriver.py Configuration/GenProduction/python/$step0_fragmentfile --python_filename $step0_configfile --eventcontent RAWSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM --fileout file:$step0_resultfile --conditions 125X_mcRun3_2022_realistic_v3 --beamspot Realistic25ns13p6TeVEarly2022Collision --customise_commands process.source.numberEventsInLuminosityBlock="cms.untracked.uint32(3571)" --step GEN,SIM --geometry DB:Extended --era Run3 --no_exec --mc -n $EVENTS || exit $? ;
 
-cmsDriver.py Configuration/GenProduction/python/$step0_fragmentfile --python_filename $step0_configfile --eventcontent RAWSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM --fileout file:$step0_resultfile --conditions 125X_mcRun3_2022_realistic_v3 --beamspot Realistic25ns13p6TeVEarly2022Collision --customise_commands process.source.numberEventsInLuminosityBlock="cms.untracked.uint32(3571)" --step GEN,SIM --geometry DB:Extended --era Run3 --no_exec --mc -n $EVENTS || exit $? ;
+cmsDriver.py Configuration/GenProduction/python/$step0_fragmentfile --python_filename $step0_configfile --eventcontent RAWSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM --fileout file:$step0_resultfile --conditions 124X_mcRun3_2022_realistic_postEE_v1 --beamspot Realistic25ns13p6TeVEarly2022Collision --customise_commands process.source.numberEventsInLuminosityBlock="cms.untracked.uint32(7127)" --step GEN,SIM --geometry DB:Extended --era Run3 --no_exec --mc -n $EVENTS || exit $? ;
 #check if necessary
 sed -i "20 a from IOMC.RandomEngine.RandomServiceHelper import RandomNumberServiceHelper \nrandSvc = RandomNumberServiceHelper(process.RandomNumberGeneratorService)\nrandSvc.populate()" $step0_configfile
 echo cmsDriver for step-0 Gen ok 
@@ -62,12 +64,12 @@ echo cmsDriver for step-0 Gen ok
 #for some reason this doesn't work
 
 source /cvmfs/cms.cern.ch/cmsset_default.sh
-if [ -r CMSSW_12_5_0/src ] ; then
-  echo release CMSSW_12_5_0 already exists
+if [ -r CMSSW_12_4_11_patch3/src ] ; then
+  echo release CMSSW_12_4_11_patch3 already exists
 else
-  scram p CMSSW CMSSW_12_5_0
+  scram p CMSSW CMSSW_12_4_11_patch3
 fi
-cd CMSSW_12_5_0/src
+cd CMSSW_12_4_11_patch3/src
 eval `scram runtime -sh`
 
 scram b
@@ -77,20 +79,9 @@ cd ../..
 step1_configfile="step1-GENSIMRAW-${CHANNEL_DECAY}-run_cfg.py"
 step1_resultfile="step1-GENSIMRAW-${CHANNEL_DECAY}-result.root"
 
-# Z cmsDriver Example 
-# cmsDriver command for DIGI,DATAMIX,L1,DIGI2RAW,HLT step1
-# cmsDriver.py --python_filename $step1_configfile --eventcontent PREMIXRAW --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM-RAW --fileout file:$step1_resultfile --pileup_input "dbs:/Neutrino_E-10_gun/RunIISummer17PrePremix-PUAutumn18_102X_upgrade2018_realistic_v15-v1/GEN-SIM-DIGI-RAW" --conditions 102X_upgrade2018_realistic_v15 --step DIGI,DATAMIX,L1,DIGI2RAW,HLT:@relval2018 --procModifiers premix_stage2 --geometry DB:Extended --filein file:$step0_resultfile --datamix PreMix --era Run2_2018 --no_exec --mc -n $EVENTS;
+#cmsDriver.py  --python_filename $step1_configfile --eventcontent RAWSIM --pileup 2022_LHC_Simulation_10h_2h --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM-RAW --fileout file:$step1_resultfile --pileup_input "dbs:/MinBias_TuneCP5_13p6TeV-pythia8/Commission22GS-125X_mcRun3_2022_realistic_v3-v1/GEN-SIM" --conditions 125X_mcRun3_2022_realistic_v3 --step DIGI,L1,DIGI2RAW,HLT:@relval2022 --geometry DB:Extended --filein file:$step0_resultfile --era Run3 --no_exec --mc -n $EVENTS || exit $? ;
 
-# TAKEN FROM https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_setup/BPH-RunIIAutumn18DR-00097
-# cmsDriver command for DIGI,L1,DIGI2RAW,HLT step1 mising DataMix don't know why
-# cmsDriver.py  --python_filename $step1_configfile --eventcontent FEVTDEBUGHLT --pileup "AVE_25_BX_25ns,{'N': 20}" --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM-DIGI-RAW --fileout file:$step1_resultfile --pileup_input "dbs:/MinBias_TuneCP5_13TeV-pythia8/RunIIFall18GS-102X_upgrade2018_realistic_v9-v1/GEN-SIM" --conditions 102X_upgrade2018_realistic_v15 --step DIGI,L1,DIGI2RAW,HLT:@relval2018 --geometry DB:Extended --filein file:$step0_resultfile --era Run2_2018 --no_exec --mc -n $EVENTS || exit $?;
-
-# cmsDriver command for 2022 BPH analysis https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_test/TSG-Run3Summer22DRPremix-00057
-# cmsDriver.py  --python_filename $step1_configfile --eventcontent PREMIXRAW --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM-RAW --fileout file:$step1_resultfile --pileup_input "dbs:/Neutrino_E-10_gun/Run3Summer21PrePremix-Summer22_124X_mcRun3_2022_realistic_v11-v2/PREMIX" --conditions 124X_mcRun3_2022_realistic_v12 --step DIGI,DATAMIX,L1,DIGI2RAW,HLT:2022v12 --procModifiers premix_stage2,siPixelQualityRawToDigi --geometry DB:Extended --filein file:$step0_resultfile --datamix PreMix --era Run3 --no_exec --mc -n $EVENTS || exit $? ;
-#cmsDriver.py  --python_filename $step1_configfile --eventcontent PREMIXRAW --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM-RAW --fileout file:$step1_resultfile --pileup_input "/store/mc/RunIISummer20ULPrePremix/Neutrino_E-10_gun/PREMIX/UL16_106X_mcRun2_asymptotic_v13-v1/120004/358A7F8C-2ED3-3B4C-8F5D-64A7B2DF6B34.root" --conditions 124X_mcRun3_2022_realistic_v12 --step DIGI,DATAMIX,L1,DIGI2RAW,HLT:2022v12 --procModifiers premix_stage2,siPixelQualityRawToDigi --geometry DB:Extended --filein file:$step0_resultfile --datamix PreMix --era Run3 --no_exec --mc -n $EVENTS || exit $? ;
-#sed -i "20 a from IOMC.RandomEngine.RandomServiceHelper import RandomNumberServiceHelper\nrandSvc = RandomNumberServiceHelper(process.RandomNumberGeneratorService)\nrandSvc.populate()" $step1_configfile
-cmsDriver.py  --python_filename $step1_configfile --eventcontent RAWSIM --pileup 2022_LHC_Simulation_10h_2h --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM-RAW --fileout file:$step1_resultfile --pileup_input "dbs:/MinBias_TuneCP5_13p6TeV-pythia8/Commission22GS-125X_mcRun3_2022_realistic_v3-v1/GEN-SIM" --conditions 125X_mcRun3_2022_realistic_v3 --step DIGI,L1,DIGI2RAW,HLT:@relval2022 --geometry DB:Extended --filein file:$step0_resultfile --era Run3 --no_exec --mc -n $EVENTS || exit $? ;
-
+cmsDriver.py  --python_filename $step1_configfile --eventcontent RAWSIM --pileup AVE_70_BX_25ns             --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM-RAW --fileout file:$step1_resultfile --pileup_input "dbs:/MinBias_TuneCP5_13p6TeV-pythia8/Run3Summer22GS-124X_mcRun3_2022_realistic_v10-v1/GEN-SIM" --conditions 124X_mcRun3_2022_realistic_postEE_v1 --step DIGI,L1,DIGI2RAW,HLT:2022v14 --geometry DB:Extended --filein file:$step0_resultfile --era Run3 --no_exec --mc -n $EVENTS || exit $? ;
 sed -i "20 a from IOMC.RandomEngine.RandomServiceHelper import RandomNumberServiceHelper\nrandSvc = RandomNumberServiceHelper(process.RandomNumberGeneratorService)\nrandSvc.populate()" $step1_configfile
 echo cmsDriver for step-1 DIGI ok 
 
@@ -101,12 +92,12 @@ echo cmsDriver for step-1 DIGI ok
 #for some reason this doesn't work
 
 source /cvmfs/cms.cern.ch/cmsset_default.sh
-if [ -r CMSSW_12_5_0/src ] ; then
-  echo release CMSSW_12_5_0 already exists
+if [ -r CMSSW_12_4_11_patch3/src ] ; then
+  echo release CMSSW_12_4_11_patch3 already exists
 else
-  scram p CMSSW CMSSW_12_5_0
+  scram p CMSSW CMSSW_12_4_11_patch3
 fi
-cd CMSSW_12_5_0/src
+cd CMSSW_12_4_11_patch3/src
 eval `scram runtime -sh`
 
 scram b
@@ -117,19 +108,7 @@ cd ../..
 step2_configfile="step2-AODSIM-${CHANNEL_DECAY}-run_cfg.py"
 step2_resultfile="step2-AODSIM-${CHANNEL_DECAY}-result.root"
 
-# Z cmsDriver Example
-# cmsDriver command for RAW2DIGI,L1Reco,RECO,RECOSIM,EI step2
-# cmsDriver.py  --python_filename $step2_configfile --eventcontent AODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier AODSIM --fileout file:$step2_resultfile --conditions 102X_upgrade2018_realistic_v15 --step RAW2DIGI,L1Reco,RECO,RECOSIM,EI --procModifiers premix_stage2 --filein file:$step1_resultfile --era Run2_2018 --runUnscheduled --no_exec --mc -n $EVENTS; 
-
-# taken from https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_setup/BPH-RunIIAutumn18RECOBParking-00080
-# cmsDriver command for RAW2DIGI,L1Reco,RECO,RECOSIM,EI step2 missing --procModifiers premix_stage2 i guess is the same isue 
-#cmsDriver.py  --python_filename $step2_configfile --eventcontent AODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier AODSIM --fileout file:$step2_resultfile --conditions 102X_upgrade2018_realistic_v15 --step RAW2DIGI,L1Reco,RECO,RECOSIM,EI --geometry DB:Extended --filein file:$step1_resultfile  --era Run2_2018 --runUnscheduled --no_exec --mc -n $EVENTS;
-#cmsDriver.py  --python_filename $step2_configfile --eventcontent AODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier AODSIM --fileout file:$step2_resultfile --conditions 102X_upgrade2018_realistic_v15 --step RAW2DIGI,L1Reco,RECO,RECOSIM,EI --filein file:$step1_resultfile  --era Run2_2018,bParking --no_exec --mc -n $EVENTS || exit $?; 
-#cmsDriver.py  --python_filename $step2_configfile --eventcontent AODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier AODSIM --fileout file:$step2_resultfile --conditions 102X_upgrade2018_realistic_v15 --step RAW2DIGI,L1Reco,RECO,RECOSIM,EI --filein file:$step1_resultfile  --era Run2_2018 --no_exec --mc -n $EVENTS || exit $?; 
-#cmsDriver taken (check RECO filecontent and extra config) taken from https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_test/TSG-Run3Winter23Reco-00136
-#cmsDriver.py  --python_filename $step2_configfile --eventcontent RECOSIM,AODSIM --customise RecoParticleFlow/PFClusterProducer/particleFlow_HB2023.customiseHB2023,Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM-RECO,AODSIM --fileout file:$step2_resultfile --conditions 126X_mcRun3_2023_forPU65_v3 --step RAW2DIGI,L1Reco,RECO,RECOSIM --geometry DB:Extended --filein file:$step1_resultfile --era Run3_2023 --no_exec --mc -n $EVENTS || exit $? ;
-cmsDriver.py  --python_filename $step2_configfile --eventcontent RECOSIM,AODSIM --customise RecoParticleFlow/PFClusterProducer/particleFlow_HB2023.customiseHB2023,Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM-RECO,AODSIM --fileout file:$step2_resultfile --conditions 126X_mcRun3_2023_forPU65_v3 --step RAW2DIGI,L1Reco,RECO,RECOSIM --geometry DB:Extended --filein file:$step1_resultfile --era Run3_2023 --no_exec --mc -n $EVENTS || exit $? ;
-cmsDriver.py  --python_filename $step2_configfile --eventcontent MINIAODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier MINIAODSIM --fileout file:BPH-Commission22MiniAOD-00002.root --conditions 125X_mcRun3_2022_realistic_v3 --step PAT --geometry DB:Extended --filein "dbs:/B0ToJpsiK0s_JPsiToMuMu_SoftQCDnonD_TuneCP5_13p6TeV-pythia8-evtgen/Commission22DR-NoPU_125X_mcRun3_2022_realistic_v3-v1/AODSIM" --era Run3 --no_exec --mc -n $EVENTS || exit $? ;
+cmsDriver.py  --python_filename $step2_configfile --eventcontent AODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier AODSIM --fileout file:$step2_resultfile --conditions 124X_mcRun3_2022_realistic_postEE_v1 --step RAW2DIGI,L1Reco,RECO,RECOSIM --geometry DB:Extended --filein file:$step1_resultfile --era Run3 --no_exec --mc -n $EVENTS || exit $? ;
 sed -i "20 a from IOMC.RandomEngine.RandomServiceHelper import RandomNumberServiceHelper\nrandSvc = RandomNumberServiceHelper(process.RandomNumberGeneratorService)\nrandSvc.populate()" $step2_configfile
 echo cmsDriver for step-2 RECO ok 
 
@@ -139,12 +118,12 @@ echo cmsDriver for step-2 RECO ok
 #for some reason this doesn't work
 
 source /cvmfs/cms.cern.ch/cmsset_default.sh
-if [ -r CMSSW_12_6_4/src ] ; then
-  echo release CMSSW_12_6_4 already exists
+if [ -r CMSSW_12_4_11_patch3/src ] ; then
+  echo release CMSSW_12_4_11_patch3 already exists
 else
-  scram p CMSSW CMSSW_12_6_4
+  scram p CMSSW CMSSW_12_4_11_patch3
 fi
-cd CMSSW_12_6_4/src
+cd CMSSW_12_4_11_patch3/src
 eval `scram runtime -sh`
 
 scram b
@@ -154,14 +133,6 @@ cd ../..
 step3_configfile="step3-MINIAODSIM-${CHANNEL_DECAY}-run_cfg.py"
 step3_resultfile="step3-MINIAODSIM-${CHANNEL_DECAY}-result.root"
 
-# Z cmsDriver Example
-# cmsDriver command for MINIAOD
-#cmsDriver.py  --python_filename $step3_configfile --eventcontent MINIAODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier MINIAODSIM --fileout file:$step3_resultfile --conditions 102X_upgrade2018_realistic_v15 --step PAT --geometry DB:Extended --filein file:$step2_resultfile --era Run2_2018 --runUnscheduled --no_exec --mc -n $EVENTS;
+cmsDriver.py  --python_filename $step3_configfile --eventcontent MINIAODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier MINIAODSIM --fileout file:$step3_resultfile --conditions 124X_mcRun3_2022_realistic_postEE_v1 --step PAT --geometry DB:Extended --filein file:$step2_resultfile --era Run3 --no_exec --mc -n $EVENTS || exit $? ;
 
-#taken from https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_setup/BPH-RunIIAutumn18MiniAOD-00259
-#cmsDriver.py  --python_filename $step3_configfile --eventcontent MINIAODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier MINIAODSIM --fileout file:$step3_resultfile --conditions 102X_upgrade2018_realistic_v15 --step PAT --geometry DB:Extended --filein file:$step2_resultfile --era Run2_2018,bParking --runUnscheduled --no_exec --mc -n $EVENTS || exit $?;
-#cmsDriver.py  --python_filename $step3_configfile --eventcontent MINIAODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier MINIAODSIM --fileout file:$step3_resultfile --conditions 102X_upgrade2018_realistic_v15 --step PAT --geometry DB:Extended --filein file:$step2_resultfile --era Run2_2018 --runUnscheduled --no_exec --mc -n $EVENTS || exit $?;
-# cmadriver for miniAOD takrn from https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_test/TSG-Run3Winter23MiniAOD-00136
-#cmsDriver.py  --python_filename $step3_configfile --eventcontent MINIAODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier MINIAODSIM --fileout file:$step3_resultfile --conditions 126X_mcRun3_2023_forPU65_v3 --step PAT --geometry DB:Extended --filein file:$step2_resultfile --era Run3_2023 --no_exec --mc -n $EVENTS || exit $? ;
-cmsDriver.py  --python_filename $step3_configfile --eventcontent MINIAODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier MINIAODSIM --fileout file:$step3_resultfile --conditions 126X_mcRun3_2023_forPU65_v3 --step PAT --geometry DB:Extended --filein file:$step2_resultfile --era Run3_2023 --no_exec --mc -n $EVENTS || exit $? ;
 echo cmsDriver for step-3 MINIAOD ok 

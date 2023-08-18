@@ -9,9 +9,9 @@ st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d-%H-%M')
 
 channel = 'BdToKs0JpsiMuMu'
 gen_var = '-run_cfg.py'
-step = 'PrivateMC-2023'
-nEvents = 9643#96436
-NJOBS = 100
+step = 'PrivateMC-2022'
+nEvents = 3655#36554
+NJOBS = 1000
 mygen = "step0-GS-"+channel+gen_var
 myname = step+'-'+channel
 
@@ -33,7 +33,7 @@ config.JobType.disableAutomaticOutputCollection = True
 config.JobType.eventsPerLumi = 10000
 config.JobType.numCores = 1
 config.JobType.maxMemoryMB = 3500
-config.JobType.scriptExe = 'crabjob_BdToJpsiKs2023_fromGen2MiniAOD.sh'
+config.JobType.scriptExe = 'crabjob_BdToJpsiKs2022_fromGen2MiniAOD.sh'
 #config.JobType.scriptArgs = ["0"]
 
 #config.JobType.outputFiles = ['step0-GS-'+channel+gen_frag+'-result.root']

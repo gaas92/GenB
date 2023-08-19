@@ -11,7 +11,7 @@ channel = 'BdToKs0JpsiMuMu'
 gen_var = '-run_cfg.py'
 step = 'PrivateMC-2022'
 nEvents = 10000#36554
-NJOBS = 1000
+NJOBS = 5000
 mygen = "step0-GS-"+channel+gen_var
 myname = step+'-'+channel
 

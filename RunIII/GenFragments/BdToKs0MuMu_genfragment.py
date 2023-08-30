@@ -60,7 +60,7 @@ _generator = cms.EDFilter("Pythia8GeneratorFilter",
 'ChargeConj  MyK0s      MyK0s',
 '#',
 'Decay MyB',
-'1.000       MyK0s  mu+ mu-    PHSP;',
+'1.000       MyK0s  mu+ mu-  PHOTOS  PHSP;',
 'Enddecay',
 'CDecay Myanti-B',
 'End'

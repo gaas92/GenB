@@ -8,7 +8,7 @@ ts = time.time()
 st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d-%H-%M')
 
 channel = 'BdToKs0JpsiMuMu' 
-gen_var = 'SVS-NoFilter-run_cfg.py'
+gen_var = '-SVS-NoFilter-run_cfg.py'
 step = 'PrivateMC-2022'
 nEvents = 5000#36554
 NJOBS = 100

@@ -33,7 +33,7 @@ config.JobType.disableAutomaticOutputCollection = True
 config.JobType.eventsPerLumi = 10000
 config.JobType.numCores = 1
 config.JobType.maxMemoryMB = 3500
-config.JobType.scriptExe = 'crabjob_BdToMuMuKs2022_BdToKs0MuMu_BTOSLLBALL6-NF_onlyGen_NF.sh'
+config.JobType.scriptExe = 'crabjob_BdToMuMuKs2022_BdToKs0MuMu_BTOSLLBALL6_onlyGen_NF.sh'
 #config.JobType.scriptArgs = ["0"]
 
 config.JobType.outputFiles = ['step0-GS-'+channel+'-result.root']

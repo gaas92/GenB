@@ -36,7 +36,7 @@ config.JobType.maxMemoryMB = 3500
 config.JobType.scriptExe = 'crabjob_BdToMuMuKs2022_BdToKs0MuMu_BTOSLLBALL6-NF_onlyGen_NF.sh'
 #config.JobType.scriptArgs = ["0"]
 
-config.JobType.outputFiles = ['step0-GS-'+channel+gen_frag+'-result.root']
+config.JobType.outputFiles = ['step0-GS-'+channel+'-result.root']
 #config.JobType.outputFiles = ['step3-MINIAODSIM-'+channel+'-result.root']
 
 config.Data.outputPrimaryDataset = myname

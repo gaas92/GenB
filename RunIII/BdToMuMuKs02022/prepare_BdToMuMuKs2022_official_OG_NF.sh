@@ -16,8 +16,8 @@ eval `scram runtime -sh`
 
 
 # Configuration parameters
-CHANNEL_DECAY="BdToKs0MuMu-BTOSLLBALL6-NF"
-step0_fragmentfile="BdToKs0MuMu_BTOSLLBALL6_NF_genfragment.py"
+CHANNEL_DECAY="BdToKs0MuMu2022_official_NF"
+step0_fragmentfile="BdToKs0MuMu_BPH-Run3Summer22GS-00108-NoFilter.py"
 step0_configfile="step0-GS-${CHANNEL_DECAY}-run_cfg.py"
 step0_resultfile="step0-GS-${CHANNEL_DECAY}-result.root"
 

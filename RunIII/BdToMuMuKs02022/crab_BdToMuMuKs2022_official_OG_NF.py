@@ -7,7 +7,7 @@ config = config()
 ts = time.time()
 st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d-%H-%M')
 
-channel = 'BdToKs0MuMu-BTOSLLBALL6-NF'
+channel = 'BdToKs0MuMu2022_official_NF'
 gen_var = '-run_cfg.py'
 step = 'PrivateMC-2022'
 nEvents = 5000#36554
@@ -33,7 +33,7 @@ config.JobType.disableAutomaticOutputCollection = True
 config.JobType.eventsPerLumi = 10000
 config.JobType.numCores = 1
 config.JobType.maxMemoryMB = 3500
-config.JobType.scriptExe = 'crabjob_BdToMuMuKs2022_BTOSLLBALL6_onlyGen_NF.sh'
+config.JobType.scriptExe = 'crabjob_BdToMuMuKs2022_official_OG_NF.sh'
 #config.JobType.scriptArgs = ["0"]
 
 config.JobType.outputFiles = ['step0-GS-'+channel+'-result.root']

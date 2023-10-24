@@ -65,16 +65,13 @@ echo cmsDriver for step-0 Gen ok
 #for some reason this doesn't work
 
 source /cvmfs/cms.cern.ch/cmsset_default.sh
-if [ -r CMSSW_12_4_11_patch3/src ] ; then
-  echo release CMSSW_12_4_11_patch3 already exists
+if [ -r CMSSW_12_4_14_patch3/src ] ; then
+  echo release CMSSW_12_4_14_patch3 already exists
 else
-  scram p CMSSW CMSSW_12_4_11_patch3
+  scram p CMSSW CMSSW_12_4_14_patch3
 fi
-cd CMSSW_12_4_11_patch3/src
+cd CMSSW_12_4_14_patch3/src
 eval `scram runtime -sh`
-
-scram b
-cd ../..
 
 # Configuration parameters
 step1_configfile="step1-PREMIXRAW-${CHANNEL_DECAY}-run_cfg.py"

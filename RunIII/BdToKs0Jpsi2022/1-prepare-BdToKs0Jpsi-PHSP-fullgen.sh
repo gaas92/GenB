@@ -3,8 +3,8 @@
 #all steps from https://cms-pdmv-prod.web.cern.ch/mcm/requests?dataset_name=BdToJpsiK0s_Unbiased_TuneCP5_13p6TeV_pythia8-evtgen&page=0&shown=2151940099
 
 
-#for some reason this doesn't work, LETS TRY AGAIN, COMENT IN CASE OF CRASH
-export SCRAM_ARCH=el8_amd64_gcc10
+#for some reason this doesn't work, doesnt work until 24/10/23
+#export SCRAM_ARCH=el8_amd64_gcc10
 
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 if [ -r CMSSW_12_4_14_patch3/src ] ; then

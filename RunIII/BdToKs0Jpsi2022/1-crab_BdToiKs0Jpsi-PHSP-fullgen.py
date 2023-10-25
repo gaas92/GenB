@@ -11,7 +11,7 @@ channel = '1-BdToKs0JpsiMuMu-PHSP'
 gen_var = '-run_cfg.py'
 step = 'PrivMC'
 nEvents = 10000#36554
-NJOBS = 500
+NJOBS = 5000
 mygen = "step0-RAWSIM-"+channel+gen_var
 myname = step+'-'+channel
 

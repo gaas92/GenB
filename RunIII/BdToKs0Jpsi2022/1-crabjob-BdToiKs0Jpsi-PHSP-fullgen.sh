@@ -52,7 +52,7 @@ then
 	cd ../../
 
 	echo "==================== PB: CMSRUN starting Reco step ===================="
-	cmsRun -e -j ${CHANNEL_DECAY}_step1.log step1-GENSIMRAW-${CHANNEL_DECAY}-run_cfg.py
+	cmsRun -e -j ${CHANNEL_DECAY}_step1.log step1-PREMIXRAW-${CHANNEL_DECAY}-run_cfg.py
 	#cleaning
 	#rm -rfv step0-GS-${CHANNEL_DECAY}.root
 fi

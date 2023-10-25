@@ -73,6 +73,9 @@ fi
 cd CMSSW_12_4_14_patch3/src
 eval `scram runtime -sh`
 
+scram b
+cd ../..
+
 # Configuration parameters
 step1_configfile="step1-PREMIXRAW-${CHANNEL_DECAY}-run_cfg.py"
 step1_resultfile="step1-PREMIXRAW-${CHANNEL_DECAY}-result.root"

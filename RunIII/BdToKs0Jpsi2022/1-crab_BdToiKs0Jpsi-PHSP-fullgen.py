@@ -21,7 +21,7 @@ config.General.transferLogs = False
 config.General.workArea = 'crab_'+step+'-'+channel
 
 config.JobType.allowUndistributedCMSSW = True
-config.JobType.pluginName = 'PrivMC'
+config.JobType.pluginName = 'PrivateMC'
 config.JobType.psetName = mygen
 
 # For SIM  

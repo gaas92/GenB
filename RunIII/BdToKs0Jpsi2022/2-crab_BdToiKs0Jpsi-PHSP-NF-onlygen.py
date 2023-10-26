@@ -7,11 +7,11 @@ config = config()
 ts = time.time()
 st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d-%H-%M')
 
-channel = '3-BdToKs0JpsiMuMu-PHSP'
+channel = '2-BdToKs0JpsiMuMu-PHSP-NF'
 gen_var = '-run_cfg.py'
 step = 'PrivMC'
-nEvents = 1000#36554
-NJOBS = 1
+nEvents = 5000#36554
+NJOBS = 100
 mygen = "step0-RAWSIM-"+channel+gen_var
 myname = step+'-'+channel
 
@@ -33,7 +33,7 @@ config.JobType.disableAutomaticOutputCollection = True
 config.JobType.eventsPerLumi = 10000
 config.JobType.numCores = 1
 config.JobType.maxMemoryMB = 3500
-config.JobType.scriptExe = '3-crabjob-BdToiKs0Jpsi-PHSP-onlygen.sh'
+config.JobType.scriptExe = '2-crabjob-BdToiKs0Jpsi-PHSP-NF-onlygen.sh'
 #config.JobType.scriptArgs = ["0"]
 
 config.JobType.outputFiles = ['step0-GENSIMRAW-'+channel+'-result.root']

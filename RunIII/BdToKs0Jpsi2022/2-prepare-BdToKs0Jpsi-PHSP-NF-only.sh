@@ -17,8 +17,8 @@ eval `scram runtime -sh`
 
 
 # Configuration parameters
-CHANNEL_DECAY="1-BdToKs0JpsiMuMu-PHSP"
-step0_fragmentfile="1-BdToKs0Jpsi-BPH-Run3Summer22EEGS-00112.py"
+CHANNEL_DECAY="2-BdToKs0JpsiMuMu-PHSP-NF"
+step0_fragmentfile="2-BdToKs0Jpsi-BPH-Run3Summer22EEGS-00112-NF.py"
 step0_configfile="step0-RAWSIM-${CHANNEL_DECAY}-run_cfg.py"
 step0_resultfile="step0-RAWSIM-${CHANNEL_DECAY}-result.root"
 
@@ -48,7 +48,7 @@ cd ../..
 # According to 0.0140 efficiency, validation should run 10000 / 0.0140 = 712758 events to reach the limit of 10000
 # Take the minimum of 36554 and 712758, but more than 0 -> 36554
 # It is estimated that this validation will produce: 36554 * 0.0140 = 512 events
-EVENTS=1000 #36554
+EVENTS=5000 #36554
 
 #Step 0
 # cmsDriver command origin: https://cms-pdmv-prod.web.cern.ch/mcm/public/restapi/requests/get_setup/BPH-Run3Summer22EEGS-00112

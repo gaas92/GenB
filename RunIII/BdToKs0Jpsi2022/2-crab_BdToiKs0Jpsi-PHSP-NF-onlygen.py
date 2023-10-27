@@ -36,7 +36,7 @@ config.JobType.maxMemoryMB = 3500
 config.JobType.scriptExe = '2-crabjob-BdToiKs0Jpsi-PHSP-NF-onlygen.sh'
 #config.JobType.scriptArgs = ["0"]
 
-config.JobType.outputFiles = ['step0-GENSIMRAW-'+channel+'-result.root']
+config.JobType.outputFiles = ['step0-RAWSIM-'+channel+'-result.root']
 
 config.Data.outputPrimaryDataset = myname
 config.Data.splitting = 'EventBased'

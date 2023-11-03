@@ -33,7 +33,7 @@ config.JobType.disableAutomaticOutputCollection = True
 config.JobType.eventsPerLumi = 10000
 config.JobType.numCores = 1
 config.JobType.maxMemoryMB = 3500
-config.JobType.scriptExe = '3-crabjob-BdToiKs0Jpsi-PHSP-NF-fullgen.sh'
+config.JobType.scriptExe = '3-crabjob-BdToKs0Jpsi-PHSP-NF-fullgen.sh'
 #config.JobType.scriptArgs = ["0"]
 
 #config.JobType.outputFiles = ['step0-GS-'+channel+gen_frag+'-result.root']

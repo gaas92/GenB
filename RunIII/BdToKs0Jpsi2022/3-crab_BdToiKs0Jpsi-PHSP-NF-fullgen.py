@@ -10,8 +10,8 @@ st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d-%H-%M')
 channel = '3-BdToKs0JpsiMuMu-PHSP-NF'
 gen_var = '-run_cfg.py'
 step = 'PrivMC'
-nEvents = 10000#36554
-NJOBS = 5000
+nEvents = 5000#36554
+NJOBS = 10000
 mygen = "step0-RAWSIM-"+channel+gen_var
 myname = step+'-'+channel
 

@@ -48,7 +48,7 @@ cd ../..
 # According to 0.0140 efficiency, validation should run 10000 / 0.0140 = 712758 events to reach the limit of 10000
 # Take the minimum of 36554 and 712758, but more than 0 -> 36554
 # It is estimated that this validation will produce: 36554 * 0.0140 = 512 events
-EVENTS=10000 #36554
+EVENTS=1000 #36554
 
 #Step 0
 # cmsDriver command origin: https://cms-pdmv-prod.web.cern.ch/mcm/public/restapi/requests/get_test/BPH-Run3Summer22EEGS-00103
